@@ -29,10 +29,12 @@ def count_flights(csv_file, city, target_date):
 
     return flights_count_early, flights_count_before
 
+
+st.header('Event Growth Analysis')
 # Example usage:
 csv_file = 'numflights.csv'
-city = input("Enter the city: ")
-target_date = input("Enter the target date (YYYY-MM-DD): ")
+city = st.text_input("Enter the city: ")
+target_date = st.text_input("Enter the target date (YYYY-MM-DD): ")
 early_flights, before_flights = count_flights(csv_file, city, target_date)
 print(f"Number of flights in {city} one month before {target_date} and in the two weeks leading to {target_date}:")
 print(f"Early flights: {early_flights}")

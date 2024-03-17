@@ -10,7 +10,6 @@ def count_flights(csv_file, city, target_date):
         target_date = datetime.strptime(target_date, '%Y-%m-%d')
         one_month_ago = target_date - timedelta(days=30)
         two_weeks_ago = target_date - timedelta(days=14)
-        target_date_str = target_date.strftime('%Y-%m-%d')
 
         for row in reader:
             row_date = datetime.strptime(row['Date'], '%Y-%m-%d')
@@ -21,7 +20,7 @@ def count_flights(csv_file, city, target_date):
                 except ValueError:
                     pass  # Skip this row if the value cannot be converted to an integer
             # Check if the flight count is within two weeks before the target date for the given city
-            elif two_weeks_ago <= row_date < target_date:
+            elif two_weeks_ago <= row_date <= target_date:
                 try:
                     flights_count_before += int(float(row[city]))
                 except ValueError:
@@ -36,8 +35,11 @@ csv_file = 'numflights.csv'
 city = st.text_input("Enter the city: ")
 target_date = st.text_input("Enter the target date (YYYY-MM-DD): ")
 early_flights, before_flights = count_flights(csv_file, city, target_date)
-print(f"Number of flights in {city} one month before {target_date} and in the two weeks leading to {target_date}:")
-print(f"Early flights: {early_flights}")
-print(f"Flights before target date: {before_flights}")
-#print increase percentage of flights from early to before
-print(f"Increase in flights: {((before_flights-early_flights)/early_flights)*100:.2f}%")
+
+if early_flights == None or before_flights == None: 
+    st.write("Please enter a new target date or city")
+else:
+    st.write(f"Number of flights in {city} one month before {target_date} and in the two weeks leading to {target_date}:")
+    st.write(f"Early flights: {early_flights}")
+    st.write(f"Flights before target date: {before_flights}")
+    st.write(f"Increase in flights: {((before_flights-early_flights)/early_flights)*100:.2f}%")

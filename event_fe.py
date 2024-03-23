@@ -32,7 +32,7 @@ def count_flights(csv_file, city, target_date):
 st.header('Event Growth Analysis')
 # Example usage:
 csv_file = 'numflights.csv'
-city = st.text_input("Enter the city: ")
+city = st.text_input("Enter your target city: ")
 target_date = st.text_input("Enter the target date (YYYY-MM-DD): ")
 early_flights, before_flights = count_flights(csv_file, city, target_date)
 
@@ -40,6 +40,6 @@ if early_flights == None or before_flights == None:
     st.write("Please enter a new target date or city")
 else:
     st.write(f"Number of flights in {city} one month before {target_date} and in the two weeks leading to {target_date}:")
-    st.write(f"Early flights: {early_flights}")
-    st.write(f"Flights before target date: {before_flights}")
-    st.write(f"Increase in flights: {((before_flights-early_flights)/early_flights)*100:.2f}%")
+    st.write(f"Flights one month to 2 weeks before the target date: {early_flights}")
+    st.write(f"Flights two weeks leading up to the target date: {before_flights}")
+    st.write(f"Percent increase in flights: {((before_flights-early_flights)/early_flights)*100:.2f}%")
